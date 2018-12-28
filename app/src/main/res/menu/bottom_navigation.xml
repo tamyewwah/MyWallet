@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_payment"
+        android:icon="@drawable/payment"
+        android:title="@string/payment"/>
+    <item
+        android:id="@+id/nav_transfer"
+        android:icon="@drawable/transfer"
+        android:title="@string/transfer"/>
+    <item
+        android:id="@+id/nav_MyWallet"
+        android:icon="@drawable/wallet"
+        android:title="@string/mywallet"/>
+    <item
+        android:id="@+id/nav_promotion"
+        android:icon="@drawable/promotion"
+        android:title="@string/promotion"/>
+
+</menu>
