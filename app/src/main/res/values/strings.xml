@@ -24,4 +24,6 @@
     <string name="message">Message</string>
     <string name="setting">Setting</string>
     <string name="help">Help</string>
+    <string name="smart_wallet">Smart Wallet</string>
+    <string name="smartwallet">SmartWallet</string>
 </resources>
