@@ -12,11 +12,13 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
 
     private DrawerLayout drawer;
+    private BottomNavigationView bottomNav;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawer,toolbar,R.string.open,R.string.close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
     }
@@ -48,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_feedback:
                 selectedFragment = new FeedbackFragment();
+                bottomNav.setVisibility(View.INVISIBLE);
                 break;
             case R.id.nav_message:
                 selectedFragment = new MessageFragment();
@@ -83,6 +86,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             {
                 case R.id.nav_payment:
                     selectedFragment = new PaymentFragment();
+                    
+                    bottomNav.setVisibility(View.INVISIBLE);
                     break;
                 case R.id.nav_transfer:
                     selectedFragment = new TransferFragment();

@@ -26,4 +26,10 @@
     <string name="help">Help</string>
     <string name="smart_wallet">Smart Wallet</string>
     <string name="smartwallet">SmartWallet</string>
+    <string name="cameraScan">Please scan to QR code</string>
+    <string name="subject">Problem:</string>
+    <string name="EnterSubject">Enter problem that faced</string>
+    <string name="send">send</string>
+    <string name="FeedbackMessage">Your Feedback</string>
+    <string name="EnterMessage">Please enter your feedback here</string>
 </resources>
