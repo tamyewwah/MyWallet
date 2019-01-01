@@ -53,7 +53,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 bottomNav.setVisibility(View.INVISIBLE);
                 break;
             case R.id.nav_message:
+
                 selectedFragment = new MessageFragment();
+                bottomNav.setVisibility(View.INVISIBLE);
                 break;
             case R.id.nav_setting:
                 selectedFragment = new SettingFragment();

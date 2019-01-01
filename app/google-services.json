@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "602279557275-uqkleaooo1hrq1rb14lout9gv8t377vo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gmail.tamyewwah.mywallet",
+            "certificate_hash": "d1f8afd8fffa9e85faf9df0f838e152fccf04677"
+          }
+        },
+        {
           "client_id": "602279557275-77gd0d05n789k0a3sgqa19qkkuogeb3t.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "602279557275-77gd0d05n789k0a3sgqa19qkkuogeb3t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
