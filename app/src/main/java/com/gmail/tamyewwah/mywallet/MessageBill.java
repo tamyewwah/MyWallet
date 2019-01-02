@@ -7,6 +7,7 @@ public class MessageBill {
     private String ExpireDate;
     private Double Amount;
     private String UserID;
+    private boolean isSelected;
 
     public MessageBill(String BillCode,String Company,String Description,String ExpireDate,Double Amount,String UserID)
     {
@@ -64,6 +65,13 @@ public class MessageBill {
 
     public String getUserID() {
         return UserID;
+    }
+
+    public boolean getSelected(){
+        return isSelected;
+    }
+    public void setSelected(boolean isSelected){
+        this.isSelected=isSelected;
     }
 
 }
