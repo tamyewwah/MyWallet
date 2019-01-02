@@ -32,4 +32,11 @@
     <string name="send">send</string>
     <string name="FeedbackMessage">Your Feedback</string>
     <string name="EnterMessage">Please enter your feedback here</string>
+    <string name="title_activity_news">NewsActivity</string>
+    <string name="title_activity_add_promotion">AddPromotionActivity</string>
+    <string name="title_activity_my_voucher">MyVoucherActivity</string>
+    <string name="add_voucher">Add_Voucher</string>
+    <string name="my_voucher">My_Voucher</string>
+    <string name="news">News</string>
+    <string name="textview">TextView</string>
 </resources>
