@@ -6,21 +6,12 @@
     android:background="@color/colorPrimaryDark"
     tools:context=".MainActivity">
 
-    <SurfaceView
-        android:id="@+id/cameraPreview"
-        android:layout_centerInParent="true"
-        android:layout_width="match_parent"
-        android:layout_height="400dp" />
-    <TextView
-        android:layout_below="@+id/cameraPreview"
-        android:layout_centerHorizontal="true"
-        android:gravity="center_horizontal"
-        android:id="@+id/txtResult"
-        android:layout_marginTop="20dp"
-        android:text="@string/cameraScan"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/qrcodecamera"
+        android:orientation="vertical"/>
 
 
 </RelativeLayout>
