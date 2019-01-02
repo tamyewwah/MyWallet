@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "602279557275-okj0gtq5lj1c9i9i3arpjhh6uq5lnavt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gmail.tamyewwah.mywallet",
+            "certificate_hash": "ec81b9d0f0ae66873345fe6dc65bad2278248b94"
+          }
+        },
+        {
           "client_id": "602279557275-77gd0d05n789k0a3sgqa19qkkuogeb3t.apps.googleusercontent.com",
           "client_type": 3
         }
