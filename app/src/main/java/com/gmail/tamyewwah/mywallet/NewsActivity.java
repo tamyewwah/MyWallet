@@ -16,10 +16,9 @@ public class NewsActivity extends AppCompatActivity {
 
     private ViewPager nSlideViewPager;
     private LinearLayout nDotsLayout;
-
     private TextView[] nDots;
-
     private SliderAdapter sliderAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
