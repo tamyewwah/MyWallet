@@ -1,5 +1,6 @@
 package com.gmail.tamyewwah.mywallet;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
@@ -110,27 +111,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         {
             case R.id.nav_transactionRecord:
                 selectedFragment = new TransactionRecordFragment();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedFragment).commit();
                 break;
             case R.id.nav_balance:
                 selectedFragment = new BalanceFragment();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedFragment).commit();
                 break;
             case R.id.nav_feedback:
                 selectedFragment = new FeedbackFragment();
                 bottomNav.setVisibility(View.GONE);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedFragment).commit();
                 break;
             case R.id.nav_message:
 
                 selectedFragment = new MessageFragment();
                 bottomNav.setVisibility(View.GONE);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedFragment).commit();
                 break;
             case R.id.nav_setting:
                 selectedFragment = new SettingFragment();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedFragment).commit();
                 break;
             case R.id.nav_help:
                 selectedFragment = new HelpFragment();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedFragment).commit();
+                break;
+            case R.id.nav_logout:
                 break;
         }
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedFragment).commit();
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
