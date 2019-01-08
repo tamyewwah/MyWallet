@@ -36,7 +36,7 @@ public class Register extends AppCompatActivity {
 
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
-        databaseUser = FirebaseDatabase.getInstance().getReference("users");
+        databaseUser = FirebaseDatabase.getInstance().getReference("User");
 
         btnregister = (Button) findViewById(R.id.btn_register);
         inputrfullname = (EditText) findViewById(R.id.rEditname);
