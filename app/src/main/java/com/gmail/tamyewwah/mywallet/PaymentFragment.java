@@ -45,7 +45,7 @@ public class PaymentFragment extends Fragment implements ZXingScannerView.Result
         View view = inflater.inflate(R.layout.fragment_payment, container, false);
 
         MainActivity mainActivity =(MainActivity)getActivity();
-        userID = mainActivity.getUserID();
+        userID = mainActivity.USER_ID();
         qrCamera = view.findViewById(R.id.qrcodecamera);
         scannerView = new ZXingScannerView(getActivity().getApplicationContext());
         scannerView.setLayoutParams(new LinearLayout.LayoutParams(

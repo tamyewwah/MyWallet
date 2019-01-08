@@ -16,23 +16,42 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-
-    private String UserID="KAmWb6hSTxbT8jCWT61n98TR6PA3";
+    private DatabaseReference BillDatabase=FirebaseDatabase.getInstance().getReference();
+    DatabaseReference conditionRef = BillDatabase.child("User");
+    private String UserID;
+    private String email;
+    private String Nickname;
+    private FirebaseUser currentUser =FirebaseAuth.getInstance().getCurrentUser();
     private DrawerLayout drawer;
+    private NavigationView navigationView;
+    private View headerView;
+    private TextView UserNameDrawer;
+    private TextView UserEmailDrawer;
     private BottomNavigationView bottomNav;
-    public String getUserID(){
-        return UserID;
-    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        navigationView = findViewById(R.id.nav_view);
+        headerView =navigationView.getHeaderView(0);
+        UserNameDrawer = headerView.findViewById(R.id.drawerUserName);
+        UserEmailDrawer =headerView.findViewById(R.id.drawerUserEmail);
         drawer =findViewById(R.id.main_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -51,10 +70,41 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+        conditionRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String getNickname;
+                String getEmail;
+                String getUserID;
+
+                for(DataSnapshot postData : dataSnapshot.getChildren()) {
+
+                    getEmail=postData.child("email").getValue().toString();
+                    getUserID=postData.child("id").getValue().toString();
+                    getNickname=postData.child("user_name").getValue().toString();
+                    if(getUserID.matches(currentUser.getUid())) {
+                            UserID=getUserID;
+                            Nickname=getNickname;
+                            email=getEmail;
+                            UserNameDrawer.setText(Nickname);
+                            UserEmailDrawer.setText(email);
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
+
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
         Fragment selectedFragment = null;
         switch (menuItem.getItemId())
         {
@@ -66,12 +116,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_feedback:
                 selectedFragment = new FeedbackFragment();
-                bottomNav.setVisibility(View.INVISIBLE);
+                bottomNav.setVisibility(View.GONE);
                 break;
             case R.id.nav_message:
 
                 selectedFragment = new MessageFragment();
-                bottomNav.setVisibility(View.INVISIBLE);
+                bottomNav.setVisibility(View.GONE);
                 break;
             case R.id.nav_setting:
                 selectedFragment = new SettingFragment();
@@ -121,6 +171,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             return true;
         }
     };
-
+    public String USER_ID()
+    {
+        return UserID;
+    }
 
 }

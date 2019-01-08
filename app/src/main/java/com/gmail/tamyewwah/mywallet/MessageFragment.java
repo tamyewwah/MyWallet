@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 
 public class MessageFragment extends Fragment {
 
+    private String userID;
     private Double total;
     private RecyclerView billList;
     private RecyclerView.Adapter adapter;
@@ -32,6 +34,7 @@ public class MessageFragment extends Fragment {
     DatabaseReference conditionRef = BillDatabase.child("Message");
     private View view;
     private ArrayList<MessageBill> ArrayBill = new ArrayList<>();
+    private ProgressBar progressBar;
 //
 //    @Override
 //    public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,8 +50,9 @@ public class MessageFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
+        userID=((MainActivity)getActivity()).USER_ID();
         view = inflater.inflate(R.layout.fragment_recycler,container, false);
+        progressBar=view.findViewById(R.id.progressbarMessage);
         billList=view.findViewById(R.id.recyclerBill);
         final FloatingActionButton buttonPay = view.findViewById(R.id.buttonFloatBill);
         billList.setHasFixedSize(true);
@@ -86,18 +90,17 @@ public class MessageFragment extends Fragment {
                     ExpireDate=postData.child("ExpireDate").getValue().toString();
                     Amount=Double.parseDouble(postData.child("Total_Amount").getValue().toString());
                     UserID=postData.child("User").getValue().toString();
-//                    if(UserID.matches("U00001")) {
+                    if(UserID.matches(userID)) {
                         MessageBill Bill = new MessageBill(BillCode, Company, Description, ExpireDate, Amount, UserID);
                         ArrayBill.add(Bill);
-//                    }
+                    }
                 }
 
                 adapter = new CardViewDataAdapter(ArrayBill);
                 billList.setAdapter(adapter);
-
+                progressBar.setVisibility(View.GONE);
 
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
