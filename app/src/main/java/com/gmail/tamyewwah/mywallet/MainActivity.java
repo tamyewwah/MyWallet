@@ -1,5 +1,6 @@
 package com.gmail.tamyewwah.mywallet;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
@@ -9,20 +10,28 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.MenuItem;
 
 import android.support.v7.widget.Toolbar;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.LinearLayout;
+import android.widget.Toast;
+
+//import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
-
     private String UserID="KAmWb6hSTxbT8jCWT61n98TR6PA3";
     private DrawerLayout drawer;
     private BottomNavigationView bottomNav;
+
+    FirebaseAuth mAuth;
+
     public String getUserID(){
         return UserID;
     }
@@ -50,7 +59,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return false;
             }
         });
-
     }
 
     @Override
@@ -78,6 +86,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_help:
                 selectedFragment = new HelpFragment();
+                break;
+            case R.id.nav_logout:
+                FirebaseUser user = mAuth.getCurrentUser();
+                if (user != null){
+                    mAuth.signOut();
+                    startActivity(new Intent(getApplicationContext(), Login.class));
+                    this.finish();
+                    Toast.makeText(this, user.getEmail()+ " Sign out!", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(this, "You aren't login Yet!", Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedFragment).commit();
