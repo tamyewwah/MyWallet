@@ -8,6 +8,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class splash extends AppCompatActivity {
     private TextView tv;
     private ImageView iv;
@@ -22,25 +25,15 @@ public class splash extends AppCompatActivity {
         Animation myanim = AnimationUtils.loadAnimation(this,R.anim.logo);
         tv.startAnimation(myanim);
         iv.startAnimation(myanim);
-        final Intent i = new Intent(this,MainActivity.class);
-        Thread timer=new Thread()
-        {
-            public void run()
-            {
-                try{
-                    sleep(5000);
-                }catch (InterruptedException e)
-                {
-                    e.printStackTrace();
-                }finally {
-                    startActivity(i);
-                    finish();
-
-
-                }
+        final Intent i = new Intent(this,Login.class);
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                startActivity(new Intent(splash.this, Login.class));
+                finish();
             }
-        };
-        timer.start();
+        }, 3000);
 
     }
 }

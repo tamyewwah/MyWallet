@@ -150,7 +150,7 @@ public class PaymentFragment extends Fragment implements ZXingScannerView.Result
     @Override
     public void handleResult(Result result) {
         final String scanResult =result.getText();
-        String FinalResult;
+        String FinalResult="";
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Scan Result");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -172,10 +172,15 @@ public class PaymentFragment extends Fragment implements ZXingScannerView.Result
             });
             FinalResult=scanResult;
         }
-        else
+        else if(scanResult.contains("-"))
         {
             FinalResult="Pay To :"+scanResult.substring(0,scanResult.indexOf("-"))+"\n"+"RM :"+scanResult.substring(scanResult.indexOf("-")+1,scanResult.length());
         }
+        else
+        {
+            FinalResult=scanResult;
+        }
+
         builder.setMessage(FinalResult);
         AlertDialog alert = builder.create();
         alert.show();
