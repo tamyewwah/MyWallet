@@ -22,7 +22,7 @@ import com.google.firebase.database.IgnoreExtraProperties;
 import java.util.HashMap;
 
 public class ResetPassword extends AppCompatActivity {
-    private EditText inputrfullname, inputrusername, inputrphoneno ,inputEmail, inputrpassword;
+    private EditText inputrfullname, inputrusername, inputrphoneno ,inputEmail, inputrpassword, inputrpin;
     private Button btnReset, btnBack;
     private FirebaseAuth auth;
     private ProgressBar progressBar;
@@ -41,6 +41,7 @@ public class ResetPassword extends AppCompatActivity {
         inputrphoneno = (EditText) findViewById(R.id.rEditphoneno);
         inputEmail = (EditText) findViewById(R.id.EditEmail);
         inputrpassword = (EditText) findViewById(R.id.rEditPassword);
+        inputrpin = (EditText) findViewById(R.id.rEditPin);
         btnReset = (Button) findViewById(R.id.btn_reset_password);
         btnBack = (Button) findViewById(R.id.btn_back);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -103,8 +104,9 @@ public class ResetPassword extends AppCompatActivity {
         String phone_no = inputrphoneno.getText().toString().trim();
         String email = inputEmail.getText().toString().trim();
         String password = inputrpassword.getText().toString().trim();
+        String pin = inputrpin.getText().toString().trim();
         String id = auth.getCurrentUser().getUid();
-        User user = new User(id, full_name, user_name, phone_no, email, password);
+        User user = new User(id, full_name, user_name, phone_no, email, password, pin);
 
         databaseUser.child(id).setValue(user);
     }
