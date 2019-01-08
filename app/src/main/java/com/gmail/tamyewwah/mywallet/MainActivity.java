@@ -12,13 +12,20 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import android.support.v7.widget.Toolbar;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.LinearLayout;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
 
+    private String UserID="KAmWb6hSTxbT8jCWT61n98TR6PA3";
     private DrawerLayout drawer;
     private BottomNavigationView bottomNav;
+    public String getUserID(){
+        return UserID;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +41,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
         bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
+
+        findViewById(R.id.main_layout).setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);
+                return false;
+            }
+        });
 
     }
 
@@ -88,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             {
                 case R.id.nav_payment:
                     selectedFragment = new PaymentFragment();
-                    
+
                     bottomNav.setVisibility(View.INVISIBLE);
                     break;
                 case R.id.nav_transfer:
@@ -105,4 +121,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             return true;
         }
     };
+
+
 }

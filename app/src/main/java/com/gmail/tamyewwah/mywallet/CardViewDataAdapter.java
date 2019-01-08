@@ -1,45 +1,69 @@
 package com.gmail.tamyewwah.mywallet;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class CardViewDataAdapter extends RecyclerView.Adapter<CardViewDataAdapter.ViewHolder> {
     private ArrayList<MessageBill> ArrayBill;
+    private double TotalAmount=0.0;
 
 
-
-    // Provide a suitable constructor (depends on the kind of dataset)
     public CardViewDataAdapter(ArrayList<MessageBill> ArrayBill) {
         this.ArrayBill=ArrayBill;
     }
 
-    // Create new views (invoked by the layout manager)
     @Override
     public CardViewDataAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                              int viewType) {
-        // create a new view
+
         View itemLayoutView = LayoutInflater.from(parent.getContext()).inflate(
                 R.layout.fragment_message, parent,false);
 
-        // create ViewHolder
+
 
         ViewHolder viewHolder = new ViewHolder(itemLayoutView);
         return viewHolder;
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(final ViewHolder viewHolder, int position) {
 
-        // - get data from your itemsData at this position
-        // - replace the contents of the view with that itemsData
+
+        final MessageBill msgBill =ArrayBill.get(position);
+        viewHolder.checkboxBill.setOnCheckedChangeListener(null);
+        viewHolder.checkboxBill.setChecked(msgBill.getSelected());
+
+        viewHolder.checkboxBill.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                msgBill.setSelected(isChecked);
+                if(viewHolder.checkboxBill.isChecked()) {
+                    TotalAmount += msgBill.getAmount();
+                }
+                else
+                {
+                    TotalAmount-=msgBill.getAmount();
+                }
+//                messageFragment.getFragmentManager().beginTransaction().replace(R.id.container,messageFragment).commit();
+
+
+
+            }
+        });
+
 
         viewHolder.BillCodeTxt.setText("Bill Code :"+ArrayBill.get(position).getBillCode());
         viewHolder.CompanyTxt.setText("Company :"+ArrayBill.get(position).getCompany());
@@ -49,13 +73,12 @@ public class CardViewDataAdapter extends RecyclerView.Adapter<CardViewDataAdapte
 
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
+
     @Override
     public int getItemCount() {
         return ArrayBill.size();
     }
 
-    // inner class to hold a reference to each item of RecyclerView
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView BillCodeTxt;
@@ -63,9 +86,11 @@ public class CardViewDataAdapter extends RecyclerView.Adapter<CardViewDataAdapte
         private TextView DescTxt;
         private TextView ExDateTxt;
         private TextView AmountTxt;
+        private CheckBox checkboxBill;
 
         public ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
+            checkboxBill = itemLayoutView.findViewById(R.id.CheckboxBill);
             BillCodeTxt= itemLayoutView.findViewById(R.id.post_billCode);
             CompanyTxt =itemLayoutView.findViewById(R.id.post_company);
             DescTxt = itemLayoutView.findViewById(R.id.post_desc);
@@ -74,5 +99,10 @@ public class CardViewDataAdapter extends RecyclerView.Adapter<CardViewDataAdapte
 
         }
     }
+    public Double result()
+    {
+        return TotalAmount;
+    }
+
 
 }
