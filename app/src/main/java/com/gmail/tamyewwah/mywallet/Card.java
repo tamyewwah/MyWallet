@@ -2,72 +2,38 @@ package com.gmail.tamyewwah.mywallet;
 
 public class Card{
 
-    private String cardname, goothru, cardType, userid;
-    private int cardnum, cvcnum;
-    private boolean isSelected;
+    private String CVC, CardName, GoodThru, Type, Total, User;
 
-    public Card(int cardnum, int cvcnum, String cardname, String goothru, String cardType, String userid) {
-        this.cardnum = cardnum;
-        this.cvcnum = cvcnum;
-        this.cardname = cardname;
-        this.goothru = goothru;
-        this.cardType = cardType;
-        this.userid = userid;
+    public Card(String CVC, String CardName, String GoodThru, String Total,String Type, String User) {
+        this.CVC = CVC;
+        this.CardName = CardName;
+        this.GoodThru = GoodThru;
+        this.Total = Total;
+        this.Type = Type;
+        this.User = User;
     }
 
-    public String getCardname() {
-        return cardname;
-    }
+    public String getCVC() { return CVC; }
 
-    public void setCardname(String cardname) {
-        this.cardname = cardname;
-    }
+    public void setCVC(String CVC) { this.CVC = CVC; }
 
-    public String getGoothru() {
-        return goothru;
-    }
+    public String getCardName() { return CardName; }
 
-    public void setGoothru(String goothru) {
-        this.goothru = goothru;
-    }
+    public void setCardName(String CardName) { this.CardName = CardName; }
 
-    public String getCardType() {
-        return cardType;
-    }
+    public String getGoodThru() { return GoodThru; }
 
-    public void setCardType(String cardType) {
-        this.cardType = cardType;
-    }
+    public void setGoodThru(String GoodThru) { this.GoodThru = GoodThru; }
 
-    public String getUserid() {
-        return userid;
-    }
+    public String getType() { return Type; }
 
-    public void setUserid(String userid) {
-        this.userid = userid;
-    }
+    public void setType(String Type) { this.Type = Type; }
 
-    public int getCardnum() {
-        return cardnum;
-    }
+    public String getUser() { return User; }
 
-    public void setCardnum(int cardnum) {
-        this.cardnum = cardnum;
-    }
+    public void setUser(String User) { this.User = User; }
 
-    public int getCvcnum() {
-        return cvcnum;
-    }
+    public String getTotal() { return Total; }
 
-    public void setCvcnum(int cvcnum) {
-        this.cvcnum = cvcnum;
-    }
-
-    public boolean isSelected() {
-        return isSelected;
-    }
-
-    public void setSelected(boolean selected) {
-        isSelected = selected;
-    }
+    public void setTotal(String Total) { this.Total = Total; }
 }
