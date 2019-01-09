@@ -43,8 +43,12 @@
     <string name="btn_back"><![CDATA[<< Back]]></string>
     <string name="welcome">Welcome to Register</string>
     <string name="already_a_member_login">Already a Member?</string>
+    <string name="pin">Pin</string>
     <string name="user_name">UserName</string>
     <string name="full_name">Full Name</string>
+    <string name="bank">Bank Name</string>
+    <string name="accountno">Account No</string>
+    <string name="amount">Total Amount</string>
     <string name="EnterMessage">Please enter your feedback here</string>
     <string name="title_activity_news">NewsActivity</string>
     <string name="title_activity_add_promotion">AddPromotionActivity</string>

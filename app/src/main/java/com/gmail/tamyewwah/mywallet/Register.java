@@ -23,7 +23,7 @@ import java.util.HashMap;
 
 @IgnoreExtraProperties
 public class Register extends AppCompatActivity {
-    private EditText inputrfullname, inputrusername, inputrphoneno, inputremail, inputrpassword;
+    private EditText inputrfullname, inputrusername, inputrphoneno, inputremail, inputrpassword, inputrpin;
     private Button btnregister, btnlinklogin;
     private ProgressBar progressBar;
     private FirebaseAuth auth;
@@ -36,7 +36,7 @@ public class Register extends AppCompatActivity {
 
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
-        databaseUser = FirebaseDatabase.getInstance().getReference("users");
+        databaseUser = FirebaseDatabase.getInstance().getReference("User");
 
         btnregister = (Button) findViewById(R.id.btn_register);
         inputrfullname = (EditText) findViewById(R.id.rEditname);
@@ -44,6 +44,7 @@ public class Register extends AppCompatActivity {
         inputrphoneno = (EditText) findViewById(R.id.rEditphoneno);
         inputremail = (EditText) findViewById(R.id.rEditEmail);
         inputrpassword = (EditText) findViewById(R.id.rEditPassword);
+        inputrpin = (EditText) findViewById(R.id.rEditPin);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         btnlinklogin = (Button) findViewById(R.id.btn_link_login);
 
@@ -65,6 +66,7 @@ public class Register extends AppCompatActivity {
                 String phoneno = inputrphoneno.getText().toString().trim();
                 String email = inputremail.getText().toString().trim();
                 String password = inputrpassword.getText().toString().trim();
+                String pin = inputrpin.getText().toString().trim();
 
                 if (TextUtils.isEmpty(fullname)) {
                     Toast.makeText(getApplicationContext(), "Enter full name!", Toast.LENGTH_SHORT).show();
@@ -76,7 +78,7 @@ public class Register extends AppCompatActivity {
                 }
 
                 if (TextUtils.isEmpty(phoneno)) {
-                    Toast.makeText(getApplicationContext(), "Enter phoneno!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Enter phone no!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -90,8 +92,18 @@ public class Register extends AppCompatActivity {
                     return;
                 }
 
+                if (TextUtils.isEmpty(pin)) {
+                    Toast.makeText(getApplicationContext(), "Enter PIN!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 if (password.length() < 6) {
                     Toast.makeText(getApplicationContext(), "Password too short, enter minimum 6 characters!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (pin.length() != 6) {
+                    Toast.makeText(getApplicationContext(), "PIN must be 6 digits!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -117,7 +129,6 @@ public class Register extends AppCompatActivity {
                                 }
                             }
                         });
-
             }
         });
     }
@@ -135,8 +146,9 @@ public class Register extends AppCompatActivity {
         String phone_no = inputrphoneno.getText().toString().trim();
         String email = inputremail.getText().toString().trim();
         String password = inputrpassword.getText().toString().trim();
+        String pin = inputrpin.getText().toString().trim();
         String id = auth.getCurrentUser().getUid();
-        User user = new User(id, full_name, user_name, phone_no, email, password);
+        User user = new User(id, full_name, user_name, phone_no, email, password, pin);
 
         databaseUser.child(id).setValue(user);
     }
