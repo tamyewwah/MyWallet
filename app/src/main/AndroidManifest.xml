@@ -58,6 +58,11 @@
             android:label="@string/title_activity_my_voucher"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Pin"
+            android:label="@string/pin"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
