@@ -31,7 +31,16 @@
         <FrameLayout
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/home"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="50sp"/>
+        </FrameLayout>
 
 
     </LinearLayout>
@@ -45,7 +54,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="?android:attr/windowBackground"
-            app:menu="@menu/bottom_navigation" /></RelativeLayout>
+            app:menu="@menu/bottom_navigation" />
+    </RelativeLayout>
     <android.support.design.widget.NavigationView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"

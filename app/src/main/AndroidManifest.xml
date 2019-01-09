@@ -26,12 +26,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".MainActivity" android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
 
         </activity>
-        <activity android:name=".Login"/>
-        <activity android:name=".Register"/>
-        <activity android:name=".ResetPassword"/>
+        <activity android:name=".Login" android:screenOrientation="portrait"/>
+        <activity android:name=".Register" android:screenOrientation="portrait"/>
+        <activity android:name=".ResetPassword" android:screenOrientation="portrait"/>
 
          <meta-data android:name="com.google.android.gms.vision.DEPENDENCIES" android:value="barcode"/>
         <!--<activity-->
@@ -43,7 +44,7 @@
             android:name="com.google.android.gms.vision.DEPENDENCIES"
             android:value="barcode" />
 
-        <activity android:name=".AddCardDetails"/>
+        <activity android:name=".AddCardDetails" android:screenOrientation="portrait"/>
         <activity
             android:name=".NewsActivity"
             android:label="@string/title_activity_news"

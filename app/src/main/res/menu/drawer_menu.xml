@@ -16,6 +16,10 @@
     </group>
     <item android:title="@string/others_naviDrawer" >
         <menu android:checkableBehavior="single">
+            <item
+                android:id="@+id/nav_home"
+                android:icon="@drawable/ic_bank"
+                android:title="@string/home" />
         <item
             android:id="@+id/nav_feedback"
             android:icon="@drawable/feedback"
@@ -34,6 +38,9 @@
             android:title="@string/help" />
         </menu>
     </item>
+
+
+
 <item
     android:id="@+id/nav_logout"
     android:icon="@drawable/ic_exit_to_app_black_24dp"

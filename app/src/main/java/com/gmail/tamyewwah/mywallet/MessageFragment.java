@@ -17,6 +17,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,11 +34,16 @@ public class MessageFragment extends Fragment {
     private String userPin;
     private RecyclerView billList;
     private RecyclerView.Adapter adapter;
+    private ArrayList<MessageBill> getArrayBill;
+    private ArrayList<String> BillCode = new ArrayList<>();
+    private ArrayList<String> Company = new ArrayList<>();
+    private ArrayList<String> Amount = new ArrayList<>();
     private DatabaseReference BillDatabase=FirebaseDatabase.getInstance().getReference();
     DatabaseReference conditionRef = BillDatabase.child("Message");
     private View view;
     private ArrayList<MessageBill> ArrayBill = new ArrayList<>();
     private ProgressBar progressBar;
+
 //
 //    @Override
 //    public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -116,6 +123,13 @@ public class MessageFragment extends Fragment {
             public void onClick(View v) {
 
 
+                getArrayBill =((CardViewDataAdapter)billList.getAdapter()).getBill();
+
+                for(int i=0;i<getArrayBill.size();i++) {
+                    BillCode.add( getArrayBill.get(i).getBillCode().toString());
+                    Company.add(getArrayBill.get(i).getCompany().toString());
+                    Amount.add(String.valueOf(getArrayBill.get(i).getAmount()));
+                }
                 total = ((CardViewDataAdapter)billList.getAdapter()).result();
                 if(total!=0.0) {
                     AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
@@ -124,7 +138,10 @@ public class MessageFragment extends Fragment {
                     alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Intent intent =new Intent(getActivity(),Pin.class).putExtra("pinNumber",userPin);
+                                    Intent intent =new Intent(getActivity(),Pin.class).putExtra("pinNumber",userPin+"-"+total+","+"Bill")
+                                            .putStringArrayListExtra("billCode",BillCode)
+                                            .putStringArrayListExtra("Company",Company)
+                                            .putStringArrayListExtra("Amount",Amount);
                                     startActivity(intent);
                                     dialog.dismiss();
                                 }
