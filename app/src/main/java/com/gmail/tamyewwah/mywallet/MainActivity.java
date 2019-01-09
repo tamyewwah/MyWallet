@@ -33,8 +33,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DatabaseReference BillDatabase=FirebaseDatabase.getInstance().getReference();
     DatabaseReference conditionRef = BillDatabase.child("User");
     private String UserID;
-    private String email;
-    private String Nickname;
+    private String UserPin;
     private FirebaseUser currentUser =FirebaseAuth.getInstance().getCurrentUser();
     private DrawerLayout drawer;
     private NavigationView navigationView;
@@ -77,18 +76,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 String getNickname;
                 String getEmail;
                 String getUserID;
+                String getFullName;
+                String getPhone;
+                String getPin;
+                String getPassword;
 
                 for(DataSnapshot postData : dataSnapshot.getChildren()) {
 
+
                     getEmail=postData.child("email").getValue().toString();
+                    getFullName=postData.child("full_name").getValue().toString();
                     getUserID=postData.child("id").getValue().toString();
+                    getPassword=postData.child("password").getValue().toString();
+                    getPhone=postData.child("phone_no").getValue().toString();
+                    getPin=postData.child("pin").getValue().toString();
                     getNickname=postData.child("user_name").getValue().toString();
                     if(getUserID.matches(currentUser.getUid())) {
-                            UserID=getUserID;
-                            Nickname=getNickname;
-                            email=getEmail;
-                            UserNameDrawer.setText(Nickname);
-                            UserEmailDrawer.setText(email);
+
+                            User user = new User(getUserID,getFullName,getNickname,getPhone,getEmail,getPassword,getPin);
+                             UserID=user.getId();
+                             UserPin=user.getPin();
+                            UserNameDrawer.setText(user.getUser_name());
+                            UserEmailDrawer.setText(user.getEmail());
 
                     }
                 }
@@ -137,6 +146,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedFragment).commit();
                 break;
             case R.id.nav_logout:
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(MainActivity.this, Login.class);
+                startActivity(intent);
+                finish();
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);
@@ -182,6 +195,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public String USER_ID()
     {
         return UserID;
+    }
+    public String getUserPin(){
+        return UserPin;
     }
 
 }

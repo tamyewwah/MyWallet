@@ -3,6 +3,7 @@ package com.gmail.tamyewwah.mywallet;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -28,6 +29,7 @@ public class MessageFragment extends Fragment {
 
     private String userID;
     private Double total;
+    private String userPin;
     private RecyclerView billList;
     private RecyclerView.Adapter adapter;
     private DatabaseReference BillDatabase=FirebaseDatabase.getInstance().getReference();
@@ -51,6 +53,7 @@ public class MessageFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         userID=((MainActivity)getActivity()).USER_ID();
+        userPin=((MainActivity)getActivity()).getUserPin();
         view = inflater.inflate(R.layout.fragment_recycler,container, false);
         progressBar=view.findViewById(R.id.progressbarMessage);
         billList=view.findViewById(R.id.recyclerBill);
@@ -121,6 +124,8 @@ public class MessageFragment extends Fragment {
                     alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
+                                    Intent intent =new Intent(getActivity(),Pin.class).putExtra("pinNumber",userPin);
+                                    startActivity(intent);
                                     dialog.dismiss();
                                 }
                             });
@@ -150,7 +155,6 @@ public class MessageFragment extends Fragment {
 
             }
         });
-
 
 
 

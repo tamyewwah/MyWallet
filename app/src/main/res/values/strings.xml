@@ -57,13 +57,6 @@
     <string name="my_voucher">My_Voucher</string>
     <string name="news">News</string>
     <string name="textview">TextView</string>
-    <string-array name="cardType_array">
-        <item>Visa</item>
-        <item>Master</item>
-    </string-array>
-    <string name="addCard">Add a New Card</string>
-    <string name="CardName">Name on Card</string>
-    <string name="ValidTill">Valid Thru</string>
-    <string name="CVC">CVC Number</string>
-    <string name="btnSubmit">Submit</string>
+    <string name="PinNumber">Enter your pin number</string>
+    <string name="confirm">Confirm</string>
 </resources>
