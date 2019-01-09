@@ -6,4 +6,5 @@
     <color name="white">#ffffff</color>
     <color name="colorBG">#b6c3d4</color>
     <color name="color1">#1b1bef</color>
+    <color name="transactiontext">#eef1af</color>
 </resources>
