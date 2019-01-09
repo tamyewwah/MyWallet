@@ -43,7 +43,9 @@
             android:name="com.google.android.gms.vision.DEPENDENCIES"
             android:value="barcode" />
 
-        <activity android:name=".AddCardDetails"/>
+        <activity
+            android:name=".AddCardDetails"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".NewsActivity"
             android:label="@string/title_activity_news"
