@@ -59,10 +59,10 @@ public class TransactionRecordFragment extends Fragment {
 
                 for (DataSnapshot postData : dataSnapshot.getChildren()) {
 
-                    Name = postData.child("Name").getValue().toString();
-                    Date = postData.child("Pay_Date").getValue().toString();
-                    Amount = Double.parseDouble(postData.child("Total").getValue().toString());
-                    UserID = postData.child("User").getValue().toString();
+                    Name = postData.child("name").getValue().toString();
+                    Date = postData.child("pay_Date").getValue().toString();
+                    Amount = Double.parseDouble(postData.child("total").getValue().toString());
+                    UserID = postData.child("user").getValue().toString();
                     if (UserID.matches(userID)) {
                         TransactionRecord Transaction = new TransactionRecord(Name, Date, Amount, UserID);
                         ArrayTransaction.add(Transaction);

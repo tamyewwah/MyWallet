@@ -1,5 +1,7 @@
 package com.gmail.tamyewwah.mywallet;
 
+import java.util.Date;
+
 public class Transaction {
     private String Name;
     private String Pay_Date;
