@@ -90,7 +90,35 @@ public class Pin extends AppCompatActivity {
                                     {
                                         CardNum = postData.getKey();
                                         AccountName = getName;
-                                        flag=true;
+                                        conditionRefBank.addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                String getCardNumber;
+
+
+                                                for(DataSnapshot postData2 : dataSnapshot.getChildren()) {
+
+
+
+                                                    getCardNumber=postData2.child("card").getValue().toString();
+
+                                                    if(CardNum.matches(getCardNumber)) {
+                                                        AccountNum=postData2.getKey();
+                                                        CardNum=getCardNumber;
+                                                        flag=true;
+                                                        break;
+                                                    }
+
+                                                }
+
+
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                            }
+                                        });
                                         break;
 
                                     }
@@ -112,34 +140,9 @@ public class Pin extends AppCompatActivity {
                         }
                     });
                         if(flag==true)
-                        {conditionRefBank.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                String getCardNumber;
+                        {
 
 
-                                for(DataSnapshot postData2 : dataSnapshot.getChildren()) {
-
-
-
-                                    getCardNumber=postData2.child("card").getValue().toString();
-
-                                    if(CardNum.matches(getCardNumber)) {
-                                        AccountNum=postData2.getKey();
-                                        CardNum=getCardNumber;
-                                        break;
-                                    }
-
-                                }
-
-
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                            }
-                        });
 
                             try {
 
@@ -174,6 +177,7 @@ public class Pin extends AppCompatActivity {
                                             }
                                         });
                                     }
+                                    conditionRef.child(CardNum).child("total").setValue(DeductedTotal);
 
 
                                 }
@@ -185,10 +189,10 @@ public class Pin extends AppCompatActivity {
                                     Random random = new Random();
                                     int n =random.nextInt(1000)+1;
                                     conditionRefTransaction.child("T"+n).setValue(transaction);
+                                    conditionRef.child(CardNum).child("total").setValue(DeductedTotal);
 
 
                                 }
-                                conditionRef.child(CardNum).child("total").setValue(DeductedTotal);
                                 conditionRefBank.child(AccountNum).child("balance").setValue(DeductedTotal);
 
                             }catch (Exception e)
@@ -205,7 +209,7 @@ public class Pin extends AppCompatActivity {
                         }
                         if(flag==false)
                         {
-                            Toast.makeText(getApplicationContext(),"Not enough balance to pay", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),"click again or Not enough balance to pay", Toast.LENGTH_SHORT).show();
 
                         }
 
