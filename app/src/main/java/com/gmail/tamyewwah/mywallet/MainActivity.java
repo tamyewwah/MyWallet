@@ -182,7 +182,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 case R.id.nav_payment:
                     selectedFragment = new PaymentFragment();
 
-                    bottomNav.setVisibility(View.INVISIBLE);
+                    //bottomNav.setVisibility(View.INVISIBLE);
                     break;
                 case R.id.nav_transfer:
                     selectedFragment = new TransferFragment();
