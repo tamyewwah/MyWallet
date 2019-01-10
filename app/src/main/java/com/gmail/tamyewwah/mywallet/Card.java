@@ -3,6 +3,7 @@ package com.gmail.tamyewwah.mywallet;
 public class Card{
 
     private String CVC, CardName, GoodThru, Type, Total, User;
+    private boolean isSelected;
 
     public Card(String CVC, String CardName, String GoodThru, String Total,String Type, String User) {
         this.CVC = CVC;
@@ -16,6 +17,14 @@ public class Card{
     public String getCVC() { return CVC; }
 
     public void setCVC(String CVC) { this.CVC = CVC; }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
 
     public String getCardName() { return CardName; }
 

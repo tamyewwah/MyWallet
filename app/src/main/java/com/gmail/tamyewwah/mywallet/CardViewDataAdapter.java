@@ -18,8 +18,7 @@ import java.util.ArrayList;
 public class CardViewDataAdapter extends RecyclerView.Adapter<CardViewDataAdapter.ViewHolder> {
     private ArrayList<MessageBill> ArrayBill;
     private double TotalAmount=0.0;
-
-
+    private ArrayList<MessageBill> ArraySelectedBill = new ArrayList<>();
     public CardViewDataAdapter(ArrayList<MessageBill> ArrayBill) {
         this.ArrayBill=ArrayBill;
     }
@@ -39,7 +38,7 @@ public class CardViewDataAdapter extends RecyclerView.Adapter<CardViewDataAdapte
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(final ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
 
 
         final MessageBill msgBill =ArrayBill.get(position);
@@ -51,10 +50,12 @@ public class CardViewDataAdapter extends RecyclerView.Adapter<CardViewDataAdapte
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 msgBill.setSelected(isChecked);
                 if(viewHolder.checkboxBill.isChecked()) {
+                    ArraySelectedBill.add(msgBill);
                     TotalAmount += msgBill.getAmount();
                 }
                 else
                 {
+                    ArraySelectedBill.remove(msgBill);
                     TotalAmount-=msgBill.getAmount();
                 }
 //                messageFragment.getFragmentManager().beginTransaction().replace(R.id.container,messageFragment).commit();
@@ -103,6 +104,9 @@ public class CardViewDataAdapter extends RecyclerView.Adapter<CardViewDataAdapte
     {
         return TotalAmount;
     }
-
+    public ArrayList<MessageBill> getBill()
+    {
+        return ArraySelectedBill;
+    }
 
 }

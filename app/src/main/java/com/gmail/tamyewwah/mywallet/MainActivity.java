@@ -126,6 +126,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 selectedFragment = new BalanceFragment();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedFragment).commit();
                 break;
+            case R.id.nav_home:
+                Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                startActivity(intent);
+
+                finish();
+                break;
             case R.id.nav_feedback:
                 selectedFragment = new FeedbackFragment();
                 bottomNav.setVisibility(View.GONE);
@@ -147,8 +153,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_logout:
                 FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(MainActivity.this, Login.class);
-                startActivity(intent);
+                Intent intent2 = new Intent(MainActivity.this, Login.class);
+                startActivity(intent2);
                 finish();
                 break;
         }

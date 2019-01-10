@@ -59,14 +59,15 @@
     <string name="textview">TextView</string>
     <string name="PinNumber">Enter your pin number</string>
     <string name="confirm">Confirm</string>
+    <string name="home">Home</string>
     <string name="addCard">Add a New Card</string>
-    <string name="CardName">Name on Your Card</string>
-    <string name="CVC">CVC Number</string>
-    <string name="CardNum">Card Number</string>
-    <string name="ValidTill">Valid Through(Month/Year)</string>
+    <string name="CardName">Enter Your Name on Card</string>
+    <string name="CardNum">Enter Your Card Number (16 digits)</string>
+    <string name="CVC">CVC Number (Max 3 - digits)</string>
+    <string name="ValidTill">Valid Through Date (Month / Year)</string>
+    <string name="btnSubmit">Submit</string>
     <array name="cardType_array">
         <item>Visa</item>
         <item>Master</item>
     </array>
-    <string name="btnSubmit">Submit</string>
 </resources>

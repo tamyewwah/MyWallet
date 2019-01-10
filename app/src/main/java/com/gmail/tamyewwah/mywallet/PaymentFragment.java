@@ -33,6 +33,7 @@ public class PaymentFragment extends Fragment implements ZXingScannerView.Result
     private ZXingScannerView scannerView;
     private LinearLayout qrCamera;
     private  String userID;
+    private String userPin;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,6 +47,7 @@ public class PaymentFragment extends Fragment implements ZXingScannerView.Result
 
         MainActivity mainActivity =(MainActivity)getActivity();
         userID = mainActivity.USER_ID();
+        userPin=((MainActivity)getActivity()).getUserPin();
         qrCamera = view.findViewById(R.id.qrcodecamera);
         scannerView = new ZXingScannerView(getActivity().getApplicationContext());
         scannerView.setLayoutParams(new LinearLayout.LayoutParams(
@@ -170,19 +172,38 @@ public class PaymentFragment extends Fragment implements ZXingScannerView.Result
 
                 }
             });
-            FinalResult=scanResult;
+
         }
         else if(scanResult.contains("-"))
         {
             FinalResult="Pay To :"+scanResult.substring(0,scanResult.indexOf("-"))+"\n"+"RM :"+scanResult.substring(scanResult.indexOf("-")+1,scanResult.length());
+
+            builder.setNeutralButton("Pay", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                    Intent intent =new Intent(getActivity(),Pin.class).putExtra("pinNumber",userPin+"-"+scanResult.substring(scanResult.indexOf("-")+1,scanResult.length())+","+scanResult.substring(0,scanResult.indexOf("-")));
+
+                    startActivity(intent);
+
+
+                }
+            });
+
+
+
+
         }
         else
         {
             FinalResult=scanResult;
+
         }
 
         builder.setMessage(FinalResult);
         AlertDialog alert = builder.create();
         alert.show();
+
+
     }
 }
