@@ -58,8 +58,8 @@ public class TransferFragment extends Fragment {
                     Intent intent =new Intent(getActivity(),Pin.class).putExtra("pinNumber",userPin+"-"+total+","+"Transfer");
 
                                     startActivity(intent);
-                    Toast.makeText(getActivity(), "Transaction Successful!", Toast.LENGTH_SHORT).show();
-                    addTransaction();
+//                    Toast.makeText(getActivity(), "Transaction Successful!", Toast.LENGTH_SHORT).show();
+//                    addTransaction();
                 }
                 else
                 {
