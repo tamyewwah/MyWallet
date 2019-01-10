@@ -88,6 +88,8 @@ public class AddCardDetails extends AppCompatActivity implements AdapterView.OnI
                              if(getCardNumber.matches(CardNum)){
                                  CardTotal = getBalance;
                                  addCard();
+                                 Toast.makeText(getApplicationContext(), "Add Successful", Toast.LENGTH_SHORT).show();
+                                 setContentView(R.layout.fragment_mywallet);
                              }
                          }
                      }
