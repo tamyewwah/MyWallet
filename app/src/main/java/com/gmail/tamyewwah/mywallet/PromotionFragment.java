@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,9 +32,14 @@ public class PromotionFragment extends Fragment {
         btnmyvoucher.setOnClickListener(new View.OnClickListener(){
                                             @Override
                                             public void onClick(View v) {
-                                                Intent in = new Intent(getActivity(),MyVoucherActivity.class);
-                                                in.putExtra("some","some data");
-                                                startActivity(in);
+//                                                Intent in = new Intent(getActivity(),MyVoucherF.class);
+//                                                in.putExtra("some","some data");
+//                                                startActivity(in);
+                                                MyVoucherF myVoucherF = new MyVoucherF();
+                                                FragmentManager fragmentManager = getFragmentManager();
+                                                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                                fragmentTransaction.replace(R.id.promo_Frag,myVoucherF);
+                                                fragmentTransaction.commit();
                                             }
                                         }
         );

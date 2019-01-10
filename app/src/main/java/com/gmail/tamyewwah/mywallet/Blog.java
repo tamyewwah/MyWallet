@@ -1,6 +1,6 @@
 package com.gmail.tamyewwah.mywallet;
 
-public class VoucherGetSet {
+public class Blog {
     private String Company;
     private String Description;
     private Double Discount_rate;
@@ -9,7 +9,7 @@ public class VoucherGetSet {
     private String Picture;
     private String StartDate;
 
-    public VoucherGetSet(String Company,String Description,Double Discount_rate,String EndDate,String Name,String Picture,String StartDate)
+    public Blog(String Company, String Description, Double Discount_rate, String EndDate, String Name, String Picture, String StartDate)
     {
         this.Company = Company;
         this.Description = Description;

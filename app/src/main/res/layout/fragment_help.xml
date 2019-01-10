@@ -1,12 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/help"
-        android:textSize="30sp" />
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="@string/help"-->
+    <!--android:textSize="30sp" />-->
 
+    <ImageView
+        android:id="@+id/ImageViewHelp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/balance"/>
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/ImageViewHelp"
+        app:srcCompat="@drawable/payment" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/imageView2"
+        app:srcCompat="@drawable/transfer" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/imageView4"
+        app:srcCompat="@drawable/promotion" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/imageView5"
+        app:srcCompat="@drawable/wallet" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="240dp"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:textSize="18dp"
+        android:background="#0a0a78"
+        android:textColor="#ffff"
+        android:text="User can through this function to check balance."/>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="240dp"
+        android:layout_height="100dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textView2"
+        android:textSize="18dp"
+        android:background="#1111ca"
+        android:textColor="#ffff"
+        android:text="User can through this function to scan QR code and pay payment."/>
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="240dp"
+        android:layout_height="100dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textView3"
+        android:textSize="18dp"
+        android:background="#0a0a78"
+        android:textColor="#ffff"
+        android:text="User can this function to transfer to another account." />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="240dp"
+        android:layout_height="100dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textView4"
+        android:textSize="18dp"
+        android:background="#1111ca"
+        android:textColor="#ffff"
+        android:text="User can this function to store vouchers and know new promotion." />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="240dp"
+        android:layout_height="100dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textView5"
+        android:textSize="18dp"
+        android:background="#0a0a78"
+        android:textColor="#ffff"
+        android:text="User can this function to add new Card and use member card." />
 </RelativeLayout>
