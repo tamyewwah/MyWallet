@@ -119,6 +119,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (menuItem.getItemId())
         {
             case R.id.nav_transactionRecord:
+                bottomNav.setVisibility(View.INVISIBLE);
                 selectedFragment = new TransactionRecordFragment();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedFragment).commit();
                 break;
@@ -148,6 +149,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedFragment).commit();
                 break;
             case R.id.nav_help:
+                bottomNav.setVisibility(View.INVISIBLE);
                 selectedFragment = new HelpFragment();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedFragment).commit();
                 break;
@@ -180,9 +182,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             switch(item.getItemId())
             {
                 case R.id.nav_payment:
+
+                    bottomNav.setVisibility(View.INVISIBLE);
                     selectedFragment = new PaymentFragment();
 
-                    //bottomNav.setVisibility(View.INVISIBLE);
                     break;
                 case R.id.nav_transfer:
                     selectedFragment = new TransferFragment();

@@ -50,7 +50,7 @@ public class CardViewDataAdapter2 extends RecyclerView.Adapter<CardViewDataAdapt
                     }
                 }
             });
-            viewHolder.CVCNumTxt.setText("CVC Number :"+ArrayCardDetails.get(position).getCVC());
+            viewHolder.CVCNumTxt.setText("Total :"+ArrayCardDetails.get(position).getTotal());
             viewHolder.CardNameTxt.setText("Name on Card :"+ArrayCardDetails.get(position).getCardName());
             viewHolder.CardTypeTxt.setText("Card Type :"+ArrayCardDetails.get(position).getType());
         }

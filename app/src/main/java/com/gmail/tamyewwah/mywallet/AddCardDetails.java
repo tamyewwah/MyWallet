@@ -115,13 +115,10 @@ public class AddCardDetails extends AppCompatActivity implements AdapterView.OnI
          }
      }
 
-         public void displayToast (String message){
-             Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
-         }
          @Override
          public void onItemSelected (AdapterView <?> adapterView, View view,int i, long l){
              spinnerLabel = adapterView.getItemAtPosition(i).toString();
-             displayToast(spinnerLabel);
+
          }
          @Override
          public void onNothingSelected (AdapterView <?> adapterView){

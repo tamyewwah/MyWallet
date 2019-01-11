@@ -14,28 +14,28 @@ public class PromotionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_promotion, container, false);
-        Button btnaddvoucher = view.findViewById(R.id.btn_AddVoucher);
-        Button btnmyvoucher = view.findViewById(R.id.btn_MyVoucher);
+//        Button btnaddvoucher = view.findViewById(R.id.btn_AddVoucher);
+//        Button btnmyvoucher = view.findViewById(R.id.btn_MyVoucher);
         Button btnnews = view.findViewById(R.id.btn_News);
 
 
-        btnaddvoucher.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent in = new Intent(getActivity(),AddVoucherActivity.class);
-                in.putExtra("some","some data");
-                startActivity(in);
-            }
-        });
-        btnmyvoucher.setOnClickListener(new View.OnClickListener(){
-                                            @Override
-                                            public void onClick(View v) {
-                                                Intent in = new Intent(getActivity(),MyVoucherActivity.class);
-                                                in.putExtra("some","some data");
-                                                startActivity(in);
-                                            }
-                                        }
-        );
+//        btnaddvoucher.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent in = new Intent(getActivity(),AddVoucherActivity.class);
+//                in.putExtra("some","some data");
+//                startActivity(in);
+//            }
+//        });
+//        btnmyvoucher.setOnClickListener(new View.OnClickListener(){
+//                                            @Override
+//                                            public void onClick(View v) {
+//                                                Intent in = new Intent(getActivity(),MyVoucherActivity.class);
+//                                                in.putExtra("some","some data");
+//                                                startActivity(in);
+//                                            }
+//                                        }
+//        );
 
         btnnews.setOnClickListener(new View.OnClickListener() {
 
