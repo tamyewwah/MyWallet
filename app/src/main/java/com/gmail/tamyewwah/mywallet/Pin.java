@@ -1,5 +1,8 @@
 package com.gmail.tamyewwah.mywallet;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -42,6 +45,7 @@ public class Pin extends AppCompatActivity {
     private String CardNum;
     private String AccountName;
     private String AccountNum;
+    private String Message;
     private ArrayList<String> BillCode;
     private ArrayList<String> Company;
     private ArrayList<String> Amount;
@@ -53,7 +57,12 @@ public class Pin extends AppCompatActivity {
         setContentView(R.layout.activity_pin);
         pinNumber = findViewById(R.id.editTextPin);
         buttonPin = findViewById(R.id.buttonPin);
-
+        conditionRef.getRoot();
+        conditionRef.keepSynced(true);
+        conditionRefBank.getRoot();
+        conditionRefBank.keepSynced(true);
+        conditionRefTransaction.getRoot();
+        conditionRefTransaction.keepSynced(true);
         BillCode=getIntent().getStringArrayListExtra("billCode");
         Company=getIntent().getStringArrayListExtra("Company");
         Amount=getIntent().getStringArrayListExtra("Amount");
@@ -61,162 +70,183 @@ public class Pin extends AppCompatActivity {
         getPinFromUser = getData.substring(0,getData.indexOf("-"));
         getTotalFromMessage = Double.parseDouble(getData.substring(getData.indexOf("-")+1,getData.indexOf(",")));
         typePayment =getData.substring(getData.indexOf(",")+1,getData.length());
-        buttonPin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            buttonPin.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(Pin.this);
 
-                getPin=pinNumber.getText().toString();
-                    if(getPin.matches(getPinFromUser))
-                    {
+                    builder.setTitle("Confirmation");
+
+                    getPin = pinNumber.getText().toString();
+                    if (getPin.matches(getPinFromUser)) {
+
+                        Message ="Confirm to pay";
                         UserID = currentUser.getUid();
-                    conditionRef.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            Double getTotal;
-                            String getUserID;
-                            String getName;
+                        conditionRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                Double getTotal;
+                                String getUserID;
+                                String getName;
 
 
-                            for(DataSnapshot postData : dataSnapshot.getChildren()) {
+                                for (DataSnapshot postData : dataSnapshot.getChildren()) {
 
 
-                                getName =postData.child("cardName").getValue().toString();
-                                getTotal =Double.parseDouble(postData.child("total").getValue().toString());
-                                getUserID=postData.child("user").getValue().toString();
+                                    getName = postData.child("cardName").getValue().toString();
+                                    getTotal = Double.parseDouble(postData.child("total").getValue().toString());
+                                    getUserID = postData.child("user").getValue().toString();
 
-                                if(getUserID.matches(UserID)) {
-                                    DeductedTotal = getTotal- getTotalFromMessage;
-                                    if(DeductedTotal>=0)
-                                    {
-                                        CardNum = postData.getKey();
-                                        AccountName = getName;
-                                        conditionRefBank.addValueEventListener(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                                String getCardNumber;
-
-
-                                                for(DataSnapshot postData2 : dataSnapshot.getChildren()) {
+                                    if (getUserID.matches(UserID)) {
+                                        DeductedTotal = getTotal - getTotalFromMessage;
+                                        if (DeductedTotal >= 0) {
+                                            CardNum = postData.getKey();
+                                            AccountName = getName;
+                                            conditionRefBank.addValueEventListener(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                    String getCardNumber;
 
 
+                                                    for (DataSnapshot postData2 : dataSnapshot.getChildren()) {
 
 
-                                                    getCardNumber=postData2.child("card").getValue().toString();
+                                                        getCardNumber = postData2.child("card").getValue().toString();
 
-                                                    if(CardNum.matches(getCardNumber)) {
-                                                        AccountNum=postData2.getKey();
-                                                        CardNum=getCardNumber;
-                                                        flag=true;
-                                                        break;
+                                                        if (CardNum.matches(getCardNumber)) {
+                                                            AccountNum = postData2.getKey();
+                                                            CardNum = getCardNumber;
+                                                            flag = true;
+                                                            break;
+                                                        }
+
                                                     }
 
+
                                                 }
 
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                                            }
+                                                }
+                                            });
+                                            break;
 
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                        }
+                                        if (DeductedTotal < 0) {
+                                            flag = false;
+                                        }
 
-                                            }
-                                        });
-                                        break;
 
                                     }
-                                    if(DeductedTotal<0)
-                                    {
-                                        flag=false;
+                                }
+
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                        builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                if (flag == true) {
+
+
+                                    try {
+
+
+                                        if (typePayment.matches("Bill")) {
+
+
+                                            for (int i = 0; i < BillCode.size(); i++) {
+                                                Transaction transaction = new Transaction(Company.get(i), simpleDateFormat.format(date), Double.parseDouble(Amount.get(i)), UserID);
+
+                                                Random random = new Random();
+                                                int n = random.nextInt(10000) + 1;
+                                                conditionRefTransaction.child("T" + n).setValue(transaction);
+                                                Query query = Database.child("Message").orderByChild("Bill_Code").equalTo(BillCode.get(i));
+                                                query.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                        for (DataSnapshot companySnapshot : dataSnapshot.getChildren()) {
+                                                            companySnapshot.getRef().removeValue();
+                                                        }
+
+                                                    }
+
+                                                    @Override
+                                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+
+                                                    }
+                                                });
+                                            }
+                                            conditionRef.child(CardNum).child("total").setValue(DeductedTotal);
+
+
+                                        } else {
+
+                                            Transaction transaction = new Transaction(typePayment, simpleDateFormat.format(date), getTotalFromMessage, UserID);
+                                            Random random = new Random();
+                                            int n = random.nextInt(10000) + 1;
+                                            conditionRefTransaction.child("T" + n).setValue(transaction);
+                                            conditionRef.child(CardNum).child("total").setValue(DeductedTotal);
+
+
+                                        }
+                                        conditionRefBank.child(AccountNum).child("balance").setValue(DeductedTotal);
+
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
                                     }
 
+                                    Toast.makeText(getApplicationContext(), "Pay Success", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(Pin.this, MainActivity.class);
+                                    startActivity(intent);
+                                    finish();
+
+
+                                }
+                                if (flag == false) {
+                                    Toast.makeText(getApplicationContext(), "Not enough balance to pay", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(Pin.this, MainActivity.class);
+                                    startActivity(intent);
+                                    finish();
 
                                 }
                             }
-
-
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-                        if(flag==true)
-                        {
-
-
-
-                            try {
-
-
-                                if(typePayment.matches("Bill"))
-                                {
-
-
-
-
-                                    for(int i=0;i<BillCode.size();i++) {
-                                        Transaction transaction = new Transaction(Company.get(i),simpleDateFormat.format(date),Double.parseDouble(Amount.get(i)),UserID);
-
-                                        Random random = new Random();
-                                        int n =random.nextInt(10000)+1;
-                                        conditionRefTransaction.child("T"+n).setValue(transaction);
-                                        Query query = Database.child("Message").orderByChild("Bill_Code").equalTo(BillCode.get(i));
-                                        query.addListenerForSingleValueEvent(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                                for(DataSnapshot companySnapshot: dataSnapshot.getChildren())
-                                                {
-                                                    companySnapshot.getRef().removeValue();
-                                                }
-
-                                            }
-
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-
-                                            }
-                                        });
-                                    }
-                                    conditionRef.child(CardNum).child("total").setValue(DeductedTotal);
-
-
-                                }
-
-                                else
-                                {
-
-                                    Transaction transaction = new Transaction(typePayment,simpleDateFormat.format(date),getTotalFromMessage,UserID);
-                                    Random random = new Random();
-                                    int n =random.nextInt(10000)+1;
-                                    conditionRefTransaction.child("T"+n).setValue(transaction);
-                                    conditionRef.child(CardNum).child("total").setValue(DeductedTotal);
-
-
-                                }
-                                conditionRefBank.child(AccountNum).child("balance").setValue(DeductedTotal);
-
-                            }catch (Exception e)
-                            {
-                                e.printStackTrace();
+                        });
+                        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Toast.makeText(getApplicationContext(), "Canceled payment", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(Pin.this, MainActivity.class);
+                                startActivity(intent);
+                                finish();
                             }
-
-                            Toast.makeText(getApplicationContext(),"Pay Success", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(Pin.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
+                        });
 
 
-                        }
-                        if(flag==false)
-                        {
-                            Toast.makeText(getApplicationContext(),"click again or Not enough balance to pay", Toast.LENGTH_SHORT).show();
-
-                        }
+                    }
+                    else
+                    {
+                        Message="Sorry, please enter 6 pins again!";
+                        pinNumber.setText("");
+                    }
+                    builder.setMessage(Message);
+                    AlertDialog alert = builder.create();
+                    alert.show();
 
                 }
-            }
-        });
+
+
+            });
+
+
 
 
 

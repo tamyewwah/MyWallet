@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent"
+    android:layout_width="match_parent" android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
     android:orientation="vertical">
     <TextView
@@ -13,7 +13,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="15sp"
+        android:textSize="30sp"
         android:text="@string/emailSetting"
         />
 
@@ -27,7 +27,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="15sp"
+        android:textSize="30sp"
         android:text="@string/passwordSetting"
         />
     <TextView
@@ -39,7 +39,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="15sp"
+        android:textSize="30sp"
         android:text="@string/full_nameSetting"
         />
     <EditText
@@ -48,11 +48,11 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:inputType=""
-        android:importantForAutofill="no" tools:targetApi="o" />
+        android:importantForAutofill="no" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="15sp"
+        android:textSize="30sp"
         android:text="@string/phoneSetting"
         />
     <EditText
@@ -61,11 +61,11 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:inputType="number"
-        android:importantForAutofill="no" tools:targetApi="o" />
+        android:importantForAutofill="no" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="15sp"
+        android:textSize="30sp"
         android:text="@string/pinSetting"
         />
     <EditText
@@ -74,11 +74,11 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:inputType="number"
-        android:importantForAutofill="no" tools:targetApi="o" />
+        android:importantForAutofill="no" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="15sp"
+        android:textSize="30sp"
         android:text="@string/nick_name"
         />
     <EditText
@@ -87,7 +87,7 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:inputType=""
-        android:importantForAutofill="no" tools:targetApi="o" />
+        android:importantForAutofill="no" />
     <Button
         android:id="@+id/ButtonSetting"
         android:layout_width="match_parent"

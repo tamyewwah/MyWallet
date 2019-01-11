@@ -32,8 +32,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private DatabaseReference BillDatabase=FirebaseDatabase.getInstance().getReference();
     DatabaseReference conditionRef = BillDatabase.child("User");
+    DatabaseReference conditionRefCard = BillDatabase.child("Card");
     private String UserID;
     private String UserPin;
+    private String UserEmail;
+    private String FullName;
+    private String Password;
+    private String Phone;
+    private String UserName;
+
     private FirebaseUser currentUser =FirebaseAuth.getInstance().getCurrentUser();
     private DrawerLayout drawer;
     private NavigationView navigationView;
@@ -41,6 +48,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private TextView UserNameDrawer;
     private TextView UserEmailDrawer;
     private BottomNavigationView bottomNav;
+    private Double Balance=0.0;
+    private Integer NumOfCard=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +103,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     if(getUserID.matches(currentUser.getUid())) {
 
                             User user = new User(getUserID,getFullName,getNickname,getPhone,getEmail,getPassword,getPin);
-                             UserID=user.getId();
+                            UserEmail=user.getEmail();
+                            FullName=user.getFull_name();
+                            Password=user.getPassword();
+                            Phone=user.getPhone_no();
+                            UserName=user.getUser_name();
+                            UserID=user.getId();
                              UserPin=user.getPin();
                             UserNameDrawer.setText(user.getUser_name());
                             UserEmailDrawer.setText(user.getEmail());
@@ -102,6 +116,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }
                 }
 
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        conditionRefCard.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String CVCNum, CardName, GoodThru, Total, CardType, UserID;
+
+                for(DataSnapshot postData : dataSnapshot.getChildren()){
+                    CVCNum = postData.child("cvc").getValue().toString();
+                    CardName = postData.child("cardName").getValue().toString();
+                    GoodThru = postData.child("goodThru").getValue().toString();
+                    Total = postData.child("total").getValue().toString();
+                    CardType = postData.child("type").getValue().toString();
+                    UserID = postData.child("user").getValue().toString();
+                    if(UserID.matches(currentUser.getUid())){
+                        Card cardDetails = new Card(CVCNum,CardName,GoodThru,Total,CardType,UserID);
+                        NumOfCard+=1;
+                        Balance+=Double.parseDouble(cardDetails.getTotal());
+
+                    }
+                }
             }
 
             @Override
@@ -119,11 +159,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (menuItem.getItemId())
         {
             case R.id.nav_transactionRecord:
-                bottomNav.setVisibility(View.INVISIBLE);
+                bottomNav.setVisibility(View.GONE);
                 selectedFragment = new TransactionRecordFragment();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedFragment).commit();
                 break;
             case R.id.nav_balance:
+                bottomNav.setVisibility(View.GONE);
+
                 selectedFragment = new BalanceFragment();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedFragment).commit();
                 break;
@@ -146,10 +188,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_setting:
                 selectedFragment = new SettingFragment();
+                bottomNav.setVisibility(View.GONE);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedFragment).commit();
                 break;
             case R.id.nav_help:
-                bottomNav.setVisibility(View.INVISIBLE);
+                bottomNav.setVisibility(View.GONE);
                 selectedFragment = new HelpFragment();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedFragment).commit();
                 break;
@@ -182,8 +225,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             switch(item.getItemId())
             {
                 case R.id.nav_payment:
-
-                    bottomNav.setVisibility(View.INVISIBLE);
+                    bottomNav.setVisibility(View.GONE);
                     selectedFragment = new PaymentFragment();
 
                     break;
@@ -207,6 +249,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
     public String getUserPin(){
         return UserPin;
+    }
+    public String getUserEmail(){return UserEmail;}
+    public String getFullName(){return FullName;}
+    public String getPassword(){return Password;}
+    public String getPhone(){return Phone;}
+    public String getUserName(){return UserName;}
+
+    public Double getBalance()
+    {
+        return Balance;
+    }
+    public Integer getNumOfCard()
+    {
+        return NumOfCard;
     }
 
 }
