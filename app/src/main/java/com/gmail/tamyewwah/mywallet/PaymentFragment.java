@@ -35,6 +35,7 @@ import static android.Manifest.permission_group.CAMERA;
 
 public class PaymentFragment extends Fragment implements ZXingScannerView.ResultHandler {
     private DatabaseReference Database=FirebaseDatabase.getInstance().getReference();
+    DatabaseReference conditionRefPromotion = Database.child("Promotion");
     TextView textview;
     private static final int REQUEST_CAMERA = 1;
     private ZXingScannerView scannerView;
@@ -44,6 +45,7 @@ public class PaymentFragment extends Fragment implements ZXingScannerView.Result
     private String CompanyPay;
     private String PromotionID;
     private String DiscountRate;
+    private String CompanyName;
     private Double TotalPay;
 
     @Override
@@ -73,7 +75,8 @@ public class PaymentFragment extends Fragment implements ZXingScannerView.Result
                 requestPermission();
             }
         }
-
+        conditionRefPromotion.getRoot();
+        conditionRefPromotion.keepSynced(true);
         return view;
     }
 
@@ -189,8 +192,28 @@ public class PaymentFragment extends Fragment implements ZXingScannerView.Result
         {
 
             CompanyPay = scanResult.substring(0,scanResult.indexOf("-"));
+                conditionRefPromotion.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
 
+                            for (DataSnapshot companySnapshot : dataSnapshot.getChildren()) {
+
+                                CompanyName = companySnapshot.child("company").getValue().toString();
+                                if (CompanyName.matches(CompanyPay)) {
+                                    PromotionID = companySnapshot.getKey();
+                                    DiscountRate = companySnapshot.child("discount_rate").getValue().toString();
+                                }
+
+                            }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
 
 
             FinalResult="Pay To :"+scanResult.substring(0,scanResult.indexOf("-"))+"\n"+"RM :"+ scanResult.substring(scanResult.indexOf("-")+1,scanResult.length());
@@ -198,34 +221,23 @@ public class PaymentFragment extends Fragment implements ZXingScannerView.Result
             builder.setNeutralButton("Pay", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+                    try{
+                        TotalPay =Double.parseDouble(scanResult.substring(scanResult.indexOf("-")+1,scanResult.length()))- Double.parseDouble(scanResult.substring(scanResult.indexOf("-")+1,scanResult.length()))*Double.parseDouble(DiscountRate)/100;
 
-//                    Query query = Database.child("Promotion").orderByChild("company").equalTo(CompanyPay);
-//                    query.addListenerForSingleValueEvent(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                            for(DataSnapshot companySnapshot: dataSnapshot.getChildren())
-//                            {
-//                                PromotionID=companySnapshot.getRef().getKey();
-//                                DiscountRate=companySnapshot.child("discount_rate").getValue().toString();
-//                            }
-//
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//
-//                        }
-//                    });
-//                    TotalPay = Double.parseDouble(scanResult.substring(scanResult.indexOf("-")+1,scanResult.length()))*Double.parseDouble(DiscountRate);
-                    Intent intent =new Intent(getActivity(),Pin.class).putExtra("pinNumber",userPin+"-"+scanResult.substring(scanResult.indexOf("-")+1,scanResult.length())+","+scanResult.substring(0,scanResult.indexOf("-")));
+                        Toast.makeText(getActivity(),"Your Bill ", Toast.LENGTH_SHORT).show();
+                    }catch (Exception e)
+                    {
+                        TotalPay=Double.parseDouble(scanResult.substring(scanResult.indexOf("-")+1,scanResult.length()));
+                    }
+
+
+                    Intent intent =new Intent(getActivity(),Pin.class).putExtra("pinNumber",userPin+"-"+TotalPay.toString()+","+scanResult.substring(0,scanResult.indexOf("-")));
 
                     startActivity(intent);
 
 
                 }
             });
-
 
 
 
