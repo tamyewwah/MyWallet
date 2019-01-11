@@ -32,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/post_description"
-            android:text="DESCRIPTIOM"
+            android:text="DESCRIPTION"
             android:textSize="20dp"
             android:textColor="#ffff"/>
 

@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/MyVoucher_Frag"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="6dp"
+    tools:targetApi="lollipop"
+    app:cardUseCompatPadding="true"
+    android:layout_margin="5dp"
     tools:context=".MyVoucherF">
 
     <!-- TODO: Update blank fragment layout -->
@@ -15,39 +21,33 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/post_company"
+            android:id="@+id/post_companyV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/post_description"
+            android:id="@+id/post_descriptionV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/post_discount"
+            android:id="@+id/post_discountV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/post_endDate"
+            android:id="@+id/post_endDateV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/post_amount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="20sp" />
 
     </LinearLayout>
 

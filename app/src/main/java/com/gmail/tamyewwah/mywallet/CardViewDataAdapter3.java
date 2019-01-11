@@ -66,9 +66,9 @@ public class CardViewDataAdapter3 extends RecyclerView.Adapter<CardViewDataAdapt
 //        });
 
 
-        viewHolder.CompanyTxt.setText("Bill Code :"+ArrayVoucher.get(position).getCompany());
-        viewHolder.DescriptionTxt.setText("Company :"+ArrayVoucher.get(position).getDescription());
-        viewHolder.DiscountTxt.setText("Description :"+ArrayVoucher.get(position).getDiscount_rate());
+        viewHolder.CompanyTxt.setText("Company  :"+ArrayVoucher.get(position).getCompany());
+        viewHolder.DescriptionTxt.setText("Description :"+ArrayVoucher.get(position).getDescription());
+        viewHolder.DiscountTxt.setText("Discount rate:"+ArrayVoucher.get(position).getDiscount_rate());
         viewHolder.EndDateTxt.setText("Expire Date :"+ArrayVoucher.get(position).getEndDate());
 
     }
@@ -88,10 +88,10 @@ public class CardViewDataAdapter3 extends RecyclerView.Adapter<CardViewDataAdapt
 
         public ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
-            CompanyTxt =itemLayoutView.findViewById(R.id.post_company);
-            DescriptionTxt = itemLayoutView.findViewById(R.id.post_desc);
-            DiscountTxt=itemLayoutView.findViewById(R.id.post_discount);
-            EndDateTxt =itemLayoutView.findViewById(R.id.post_endDate);
+            CompanyTxt =itemLayoutView.findViewById(R.id.post_companyV);
+            DescriptionTxt = itemLayoutView.findViewById(R.id.post_descriptionV);
+            DiscountTxt=itemLayoutView.findViewById(R.id.post_discountV);
+            EndDateTxt =itemLayoutView.findViewById(R.id.post_endDateV);
 
         }
     }

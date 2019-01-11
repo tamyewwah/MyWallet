@@ -32,14 +32,12 @@ public class PromotionFragment extends Fragment {
         btnmyvoucher.setOnClickListener(new View.OnClickListener(){
                                             @Override
                                             public void onClick(View v) {
+                                                Fragment selectedFragment = null;
 //                                                Intent in = new Intent(getActivity(),MyVoucherF.class);
 //                                                in.putExtra("some","some data");
 //                                                startActivity(in);
-                                                MyVoucherF myVoucherF = new MyVoucherF();
-                                                FragmentManager fragmentManager = getFragmentManager();
-                                                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                                                fragmentTransaction.replace(R.id.promo_Frag,myVoucherF);
-                                                fragmentTransaction.commit();
+                                                selectedFragment = new MyVoucherF();
+                                                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedFragment).commit();
                                             }
                                         }
         );
