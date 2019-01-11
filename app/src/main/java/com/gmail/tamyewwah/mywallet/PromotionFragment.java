@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,28 +16,31 @@ public class PromotionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_promotion, container, false);
-//        Button btnaddvoucher = view.findViewById(R.id.btn_AddVoucher);
-//        Button btnmyvoucher = view.findViewById(R.id.btn_MyVoucher);
+        Button btnaddvoucher = view.findViewById(R.id.btn_AddVoucher);
+        Button btnmyvoucher = view.findViewById(R.id.btn_MyVoucher);
         Button btnnews = view.findViewById(R.id.btn_News);
 
 
-//        btnaddvoucher.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent in = new Intent(getActivity(),AddVoucherActivity.class);
-//                in.putExtra("some","some data");
-//                startActivity(in);
-//            }
-//        });
-//        btnmyvoucher.setOnClickListener(new View.OnClickListener(){
-//                                            @Override
-//                                            public void onClick(View v) {
-//                                                Intent in = new Intent(getActivity(),MyVoucherActivity.class);
+        btnaddvoucher.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in = new Intent(getActivity(),AddVoucherActivity.class);
+                in.putExtra("some","some data");
+                startActivity(in);
+            }
+        });
+        btnmyvoucher.setOnClickListener(new View.OnClickListener(){
+                                            @Override
+                                            public void onClick(View v) {
+                                                Fragment selectedFragment = null;
+//                                                Intent in = new Intent(getActivity(),MyVoucherF.class);
 //                                                in.putExtra("some","some data");
 //                                                startActivity(in);
-//                                            }
-//                                        }
-//        );
+                                                selectedFragment = new MyVoucherF();
+                                                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectedFragment).commit();
+                                            }
+                                        }
+        );
 
         btnnews.setOnClickListener(new View.OnClickListener() {
 
