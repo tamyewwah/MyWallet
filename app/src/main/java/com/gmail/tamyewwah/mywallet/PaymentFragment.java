@@ -18,6 +18,13 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.Result;
 
 
@@ -27,13 +34,17 @@ import static android.Manifest.permission_group.CAMERA;
 
 
 public class PaymentFragment extends Fragment implements ZXingScannerView.ResultHandler {
-
+    private DatabaseReference Database=FirebaseDatabase.getInstance().getReference();
     TextView textview;
     private static final int REQUEST_CAMERA = 1;
     private ZXingScannerView scannerView;
     private LinearLayout qrCamera;
     private  String userID;
     private String userPin;
+    private String CompanyPay;
+    private String PromotionID;
+    private String DiscountRate;
+    private Double TotalPay;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -176,12 +187,37 @@ public class PaymentFragment extends Fragment implements ZXingScannerView.Result
         }
         else if(scanResult.contains("-"))
         {
-            FinalResult="Pay To :"+scanResult.substring(0,scanResult.indexOf("-"))+"\n"+"RM :"+scanResult.substring(scanResult.indexOf("-")+1,scanResult.length());
+
+            CompanyPay = scanResult.substring(0,scanResult.indexOf("-"));
+
+
+
+
+            FinalResult="Pay To :"+scanResult.substring(0,scanResult.indexOf("-"))+"\n"+"RM :"+ scanResult.substring(scanResult.indexOf("-")+1,scanResult.length());
 
             builder.setNeutralButton("Pay", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 
+//                    Query query = Database.child("Promotion").orderByChild("company").equalTo(CompanyPay);
+//                    query.addListenerForSingleValueEvent(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                            for(DataSnapshot companySnapshot: dataSnapshot.getChildren())
+//                            {
+//                                PromotionID=companySnapshot.getRef().getKey();
+//                                DiscountRate=companySnapshot.child("discount_rate").getValue().toString();
+//                            }
+//
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//
+//                        }
+//                    });
+//                    TotalPay = Double.parseDouble(scanResult.substring(scanResult.indexOf("-")+1,scanResult.length()))*Double.parseDouble(DiscountRate);
                     Intent intent =new Intent(getActivity(),Pin.class).putExtra("pinNumber",userPin+"-"+scanResult.substring(scanResult.indexOf("-")+1,scanResult.length())+","+scanResult.substring(0,scanResult.indexOf("-")));
 
                     startActivity(intent);

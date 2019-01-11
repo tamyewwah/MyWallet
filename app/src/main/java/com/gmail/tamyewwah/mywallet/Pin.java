@@ -100,6 +100,7 @@ public class Pin extends AppCompatActivity {
 
 
 
+
                                                     getCardNumber=postData2.child("card").getValue().toString();
 
                                                     if(CardNum.matches(getCardNumber)) {
@@ -157,7 +158,7 @@ public class Pin extends AppCompatActivity {
                                         Transaction transaction = new Transaction(Company.get(i),simpleDateFormat.format(date),Double.parseDouble(Amount.get(i)),UserID);
 
                                         Random random = new Random();
-                                        int n =random.nextInt(1000)+1;
+                                        int n =random.nextInt(10000)+1;
                                         conditionRefTransaction.child("T"+n).setValue(transaction);
                                         Query query = Database.child("Message").orderByChild("Bill_Code").equalTo(BillCode.get(i));
                                         query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -187,7 +188,7 @@ public class Pin extends AppCompatActivity {
 
                                     Transaction transaction = new Transaction(typePayment,simpleDateFormat.format(date),getTotalFromMessage,UserID);
                                     Random random = new Random();
-                                    int n =random.nextInt(1000)+1;
+                                    int n =random.nextInt(10000)+1;
                                     conditionRefTransaction.child("T"+n).setValue(transaction);
                                     conditionRef.child(CardNum).child("total").setValue(DeductedTotal);
 

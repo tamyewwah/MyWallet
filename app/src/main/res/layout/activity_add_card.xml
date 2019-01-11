@@ -41,7 +41,7 @@
 
         <Spinner
             android:id="@+id/spinnerCardType"
-            android:layout_width="368dp"
+            android:layout_width="match_parent"
             android:layout_height="54dp" />
 
         <android.support.design.widget.TextInputLayout
